@@ -73,14 +73,14 @@ def create():
     app.logger.info(f'New article created successfully with title {title}')
     return render_template('create.html')
 
-@app.route('/status')
+@app.route('/healthz')
 def healthcheck():
     response = app.response_class(
             response=json.dumps({"result":"OK - healthy"}),
             status=200,
             mimetype='application/json'
     )
-    app.logger.info('Status request successful')
+    app.logger.info('Health request successful')
     return response
 
 @app.route('/metrics')
