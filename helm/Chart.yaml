@@ -1,0 +1,9 @@
+apiVersion: v1
+name: techtrends
+description: Udacity Cloud-Native Nanodegree Course-1 TechTrends project
+keywords:
+- techtrends
+version: 1.0.0
+maintainers:
+- name: Amit Bhagat 
+  email: scet.amit@gmail.com 
