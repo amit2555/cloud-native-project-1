@@ -75,13 +75,24 @@ def create():
 
 @app.route('/healthz')
 def healthcheck():
+    try:
+        connection = get_db_connection()
+        posts = connection.execute('SELECT * FROM posts').fetchone()
+        connection.close()
+        status = 200
+        message = {"result": "OK - healthy"}
+    except:
+        status = 500
+        message = {"result": "ERROR - unhealthy"}
+
     response = app.response_class(
-            response=json.dumps({"result":"OK - healthy"}),
-            status=200,
+            response=json.dumps(message),
+            status=status,
             mimetype='application/json'
     )
     app.logger.info('Health request successful')
     return response
+
 
 @app.route('/metrics')
 def metrics():
