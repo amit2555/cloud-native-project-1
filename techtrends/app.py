@@ -40,7 +40,7 @@ def index():
 def post(post_id):
     post = get_post(post_id)
     if post is None:
-      app.logger.info(f'Trying to retrieve non-existing article [id:{post_id}]')
+      app.logger.error(f'Trying to retrieve non-existing article [id:{post_id}]')
       return render_template('404.html'), 404
     else:
       app.logger.info(f'Article {post["title"]} retrieved!')
@@ -67,10 +67,9 @@ def create():
                          (title, content))
             connection.commit()
             connection.close()
-
+            app.logger.info(f'New article created successfully with title {title}')
             return redirect(url_for('index'))
 
-    app.logger.info(f'New article created successfully with title {title}')
     return render_template('create.html')
 
 @app.route('/healthz')
